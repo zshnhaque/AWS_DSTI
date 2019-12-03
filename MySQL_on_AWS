@@ -8,6 +8,7 @@ Create Database in MySQL section, choose the VPC which was created in Step 1, re
 Once the database is created, open the Putty to access the EC2.
 Switch to root user using 'sudo bash'
 Execute the following commands.
+--> sudo yum install mysql
 --> mysql -h database-1.cfxzswfvfwtd.us-east-1.rds.amazonaws.com -P 3306 -u zeeshan_haque -P
 
 -->create database db1;
