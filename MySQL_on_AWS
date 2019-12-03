@@ -1,0 +1,27 @@
+Create a VPC with CIDR 10.0.0.0/16, create 2 subnet (1 Public and 1 Private with CIDR 10.0.1.0/24 and 10.0.2.0/24 IPv4 CIDR respectively.
+Configure the Route table to attach the 2 subnet
+Create a Internet Gateway for this VPC
+Create Security Group for this VPC and configure the Inbound Config to allocate the TCP request from port 3306 (Port for MySQL).
+Create an EC2 instance with this VPC.
+Go to RDS section.
+Create Database in MySQL section, choose the VPC which was created in Step 1, remember the user credentials.
+Once the database is created, open the Putty to access the EC2.
+Switch to root user using 'sudo bash'
+Execute the following commands.
+--> mysql -h database-1.cfxzswfvfwtd.us-east-1.rds.amazonaws.com -P 3306 -u zeeshan_haque -P
+
+-->create database db1;
+
+--> use db1;
+
+--> create table if not exists tab1 (
+	id INT,
+	name varchar(255),
+	batch varchar(255),
+	PRIMARY KEY (id)
+)ENGINE=INNODB;
+
+--> insert into tab1(id,name,batch) VALUES (1,'ZEE','A19');
+--> insert into tab1(id,name,batch) VALUES (2,'ABHI','A19');
+
+select * from db1.tab1;
