@@ -1,0 +1,32 @@
+Step 0 : Objective
+Install Jupyter on a publicly accessible Ubuntu server (AWS EC2 instance).
+Configure two different Python virtual environments with Python3.6 and Python3.8 interpreters respectively
+Each Python virtual environment runs with its own specific interpreter, libraries, scripts
+As such each virtual environment is isolated from others as well as from the default Python environment included in the operating system
+Step 1 : Launch Ubuntu Server instance on AWS inside a "public subnet", configure its Route Table, assign Public IP & Security Group
+Inside a VPC, create a suitable subnet.
+Configure its route table to allow routing to 0.0.0.0/0 through Internet Gateway.
+Create a security group to allow incoming connections on port 22 (SSH), port 8888 (port on which Jupyter server will run) and optionally ICMP (ping) port.
+Launch Ubuntu 18.04 server instance (save private key "My_key_pair.pem"), assign VPC, subnet, security group created above and public IP aaa.bbb.ccc.ddd.
+Step 2 : Connect to Server by SSH, install PIP (package manager) and Jupyter
+In local CLI (Linux machine in this case), run :
+
+$sudo chmod 400 My_key_pair.pem : Protect private key by making it read-only
+
+$sudo ssh -i "My_key_pair.pem" ubuntu@aaa.bbb.ccc.ddd : Connect to server by SSH, default user "ubuntu" --> Now connected by SSH to the Server
+
+$sudo apt-get update : Download the package lists for all packages on the server that need an upgrade
+
+$sudo apt-get upgrade -y : Fetch on the server the new packages available and install them
+
+$sudo apt install python3-pip : Install pip - python package manager
+
+$sudo pip3 --version : Display pip version
+
+$sudo -H pip3 install jupyter : Install Jupyter using PIP
+
+$sudo jupyter --version : Check Jupyter version
+
+$sudo nohup jupyter notebook --allow-root --ip 0.0.0.0 & || Launch jupyter with root access, bind it with all IPs "0.0.0.0" to enable access from any public IP, type "&" to continue running Jupyter in background even after closing CLI, write the output of this command to the file "nohup"
+
+$sudo cat nohup.out || Display the content of the "nohup" file present in current directory and copy the URL containing the token :
